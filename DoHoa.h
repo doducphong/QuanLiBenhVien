@@ -3,6 +3,8 @@
 #include <Windows.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
+#include <string.h>
 
 
 // Ham thay doi kich thuoc console.

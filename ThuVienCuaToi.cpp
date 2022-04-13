@@ -110,18 +110,18 @@ void setDanToc(BenhNhan &bn) {
 	gets(bn.danToc);
 }
 
-int getSDT(BenhNhan bn) {
-	return bn.SDT;
+char *getSDT(BenhNhan *bn) {
+	return bn->SDT;
 }
 void setSDT(BenhNhan &bn) {
-	scanf("%d", &bn.SDT);
+	scanf("%s", &bn.SDT);
 }
 
-int getCCCD_CMND(BenhNhan bn) {
-	return bn.CCCD_CMND;
+char *getCCCD_CMND(BenhNhan *bn) {
+	return bn->CCCD_CMND;
 }
 void setCCCD_CMND(BenhNhan &bn) {
-	scanf("%d", &bn.CCCD_CMND);
+	scanf("%s", &bn.CCCD_CMND);
 }
 
 char *getNgheNghiep(BenhNhan *bn) {
@@ -178,7 +178,7 @@ void nhapBenhNhap(BenhNhan &bn) {
 			printf("Ten khong hop le vui long nhap lai !!!\n");
 		}
 	} while(strlen(getTenBenhNhan(&bn)) > 25 || strlen(getTenBenhNhan(&bn)) < 1);
-	
+		vietHoaChuCaiDau(&bn);
 	do {
 		printf("- Nhap ngay thang nam sinh: ");
 		setNgay(bn.ngaySinh);
@@ -196,12 +196,32 @@ void nhapBenhNhap(BenhNhan &bn) {
 			printf("Dan toc khong hop len vui long nhap lai !!!\n");
 		} 
 	} while(strlen(getDanToc(&bn)) > 10 || strlen(getDanToc(&bn)) < 1);
+		bool check;
+	do{
+		printf("- Nhap so dien thoai: ");
+		setSDT(bn);
+		for(int i=0;i<strlen(getSDT(&bn));i++){
+			check = false;
+			if((bn.SDT[i]<48 || bn.SDT[i]>57) || strlen(bn.SDT) != 10){
+				printf("so dien thoai khong hop le\n");
+				check = true;
+				break;
+			}
+		}
+	}while(check);
 	
-	printf("- Nhap so dien thoai: ");
-	setSDT(bn);
-	
-	printf("- Nhap so CMND/CCCD: ");
-	setCCCD_CMND(bn);
+	do{
+		printf("- Nhap so can cuoc cong dan: ");
+		setCCCD_CMND(bn);
+		for(int i=0;i<strlen(getSDT(&bn));i++){
+			check = false;
+			if((bn.SDT[i] < 48 || bn.SDT[i] > 57) || strlen(bn.CCCD_CMND) != 12){
+				printf("so CCCD khong hop le\n");
+				check = true;
+				break;
+			}
+		}
+	}while(check);
 	
 	do {
 		printf("- Nhap nghe nghiep: ");
@@ -292,10 +312,13 @@ void nhapBenhNhap(BenhNhan &bn) {
 		setNgay(bn.mui_2.ngayTiem);
 		setThang(bn.mui_2.ngayTiem);
 		setNam(bn.mui_2.ngayTiem);
+		if(soSanhNgay(bn.mui_1.ngayTiem, bn.mui_2.ngayTiem)){
+			printf("Ngay tiem mui 2 tai sao lai truoc mui 1??, yeu cau nhap lai.\n");
+		}
 		if(!laNgayHopLe(getNgay(bn.mui_2.ngayTiem), getThang(bn.mui_2.ngayTiem), getNam(bn.mui_2.ngayTiem))) {
 			printf("Ngay khong hop le vui long nhap lai !!!\n");
 		}
-	} while (!laNgayHopLe(getNgay(bn.mui_2.ngayTiem), getThang(bn.mui_2.ngayTiem), getNam(bn.mui_2.ngayTiem)));
+	} while (!laNgayHopLe(getNgay(bn.mui_2.ngayTiem), getThang(bn.mui_2.ngayTiem), getNam(bn.mui_2.ngayTiem)) || soSanhNgay(bn.mui_1.ngayTiem,bn.mui_2.ngayTiem));
 	
 	printf("\t- Mui 3\n");
 	do {
@@ -313,15 +336,18 @@ void nhapBenhNhap(BenhNhan &bn) {
 		if(!laNgayHopLe(getNgay(bn.mui_3.ngayTiem), getThang(bn.mui_3.ngayTiem), getNam(bn.mui_3.ngayTiem))) {
 			printf("Ngay khong hop le vui long nhap lai !!!\n");
 		}
-	} while (!laNgayHopLe(getNgay(bn.mui_3.ngayTiem), getThang(bn.mui_3.ngayTiem), getNam(bn.mui_3.ngayTiem)));
+		if(soSanhNgay(bn.mui_2.ngayTiem, bn.mui_3.ngayTiem)){
+			printf("Ngay tiem mui 3 tai sao lai truoc mui 2??, yeu cau nhap lai.\n");
+		}
+	} while (!laNgayHopLe(getNgay(bn.mui_3.ngayTiem), getThang(bn.mui_3.ngayTiem), getNam(bn.mui_3.ngayTiem)) || soSanhNgay(bn.mui_2.ngayTiem, bn.mui_3.ngayTiem));
 }
 
 void xuatBenhNhan(BenhNhan bn) {
 	printf("%-25s", getTenBenhNhan(&bn));
 	printf("%-2d/%-2d/%-4d\t", getNgay(bn.ngaySinh), getThang(bn.ngaySinh), getNam(bn.ngaySinh));
 	printf("%-10s\t", getDanToc(&bn));
-	printf("%-10d\t", getSDT(bn));
-	printf("%-15d", getCCCD_CMND(bn));
+	printf("%-10s\t", getSDT(&bn));
+	printf("%-15s", getCCCD_CMND(&bn));
 	printf("%-15s", getNgheNghiep(&bn));
 	printf("%-15s", getBhyt(&bn));
 	printf("%-25s", getNoiThuongTru(&bn));
@@ -366,7 +392,7 @@ void xuatDanhSachBenhNhan(BenhNhan *bn, int soLuong) {
 		}
 		xuatBenhNhan(bn[i]);
 	}
-}
+} 
 
 void xuatThongTinVaccine(BenhNhan bn) {
 	
@@ -401,6 +427,26 @@ void xuatDanhSachVaccine(BenhNhan *bn, int soLuong) {
 		printf("\n");
 	}
 }
+bool soSanhNgay(NgayThang ngay_1, NgayThang ngay_2) {
+	if(ngay_1.nam > ngay_2.nam) {
+		return true;
+	}
+ 
+	if(ngay_1.nam == ngay_2.nam) {
+		if(ngay_1.thang > ngay_2.thang) {
+			return true;
+		}
+ 
+		if(ngay_1.thang == ngay_2.thang) {
+			if(ngay_1.ngay > ngay_2.ngay) {
+				return true;
+			}
+		}
+	}
+ 
+	return false;
+}
+
 
 void themDau(BenhNhan *bn, int &soLuong){
 	BenhNhan giaTriThem;
@@ -446,6 +492,76 @@ void themBatKy(BenhNhan *bn, int &soLuong){
 	bn[x] = giaTriThem;
 }
 
+int soNgayChenhLech(NgayThang ngay_1, NgayThang ngay_2) {
+	return fabs(tinhSoNgayTrongThang(ngay_1.thang, ngay_1.nam) + ngay_1.ngay);
+}
+
+void xoaDau(BenhNhan *bn, int &soLuong) {
+	for(int i = 0; i < soLuong - 1; i++) {
+		bn[i] = bn[i + 1];
+	}
+	soLuong--;
+}
+
+void xoaCuoi(BenhNhan *bn, int &soLuong) {
+	soLuong--;
+} 
+
+void xoaBatKy(BenhNhan *bn, int &soLuong){
+	int x;
+	do{
+		printf("\nnhap vi tri muon xoa:");
+		scanf("%d", &x);
+		if(x<0||x>=soLuong){
+			printf("vi tri muon xoa nam ngoai danh sach\n");
+		}
+	}while(x<0||x>=soLuong);
+	
+	if(x == 0) {
+		xoaDau(bn, soLuong);
+		return;
+	}
+	if(x == soLuong - 1) {
+		xoaCuoi(bn, soLuong);
+		return;
+	}
+
+	for(int i = x; i < soLuong - 1; i++) {
+		bn[i] = bn[i + 1];
+	}
+	soLuong--;
+}
+
+void vietHoachucai(char *x){
+	if(*x<=122 && *x>=97)
+		*x = *x - 32;
+}
+
+void vietThuongChuCai(char *x){
+	if(*x>=65 && *x<=90)
+		*x = *x + 32;
+}
+
+void vietHoaChuCaiDau(BenhNhan *bn){
+	for(int i=0;i<strlen(bn->hoVaTen);i++){
+		if(i==0 || (i>0 && bn->hoVaTen[i-1]==32)){
+			vietHoachucai((bn->hoVaTen + i));
+		}
+		else
+			vietThuongChuCai((bn->hoVaTen +i));
+	}
+}
+void sapXepBenhNhanTheoTen(BenhNhan *bn, int &soLuong) {
+	for(int i = 0; i < soLuong - 1; i ++) {
+		for(int j = i + 1; j < soLuong; j++) {
+			if(strcmp((bn->hoVaTen + i) , (bn->hoVaTen + j))>0){
+				BenhNhan c = bn[i];
+				bn[i] = bn[j];
+				bn[j] = c;
+			}
+		}
+	}
+}
 
 
 

@@ -16,6 +16,9 @@ int main(int argc, char** argv) {
 		printf("4. Them vao dau\n");
 		printf("5. Them vao cuoi\n");
 		printf("6. Them vao bat ky\n");
+		printf("7. Xoa benh nhan dau\n");
+		printf("8. Xoa benh nhan cuoi\n");
+		printf("9. Xoa benh nhan bat ky\n");
 		printf("10. Xoa man hinh\n");
 		printf("Nhap lua chon cua ban: ");
 		scanf("%d", &luaChon);
@@ -26,7 +29,7 @@ int main(int argc, char** argv) {
 			case 1: {
 				printf("Nhap so luong benh nhan: ");
 				scanf("%d", &soLuong);
-				DSBN = (BenhNhan *) malloc (soLuong * sizeof(BenhNhan));
+				DSBN = (BenhNhan *) malloc ((soLuong) * sizeof(BenhNhan));
 				nhapDanhSachBenhNhan(DSBN, soLuong);
 				break;
 			}
@@ -41,19 +44,37 @@ int main(int argc, char** argv) {
 				break;
 			}
 			case 4:{
+			DSBN = (BenhNhan*) realloc(DSBN, (soLuong+1) * sizeof(BenhNhan));
 				themDau(DSBN, soLuong);
 				break;
 			}
 			case 5:{
+				DSBN = (BenhNhan*) realloc (DSBN, (soLuong+1) * sizeof(BenhNhan));
 				themCuoi(DSBN, soLuong);
 				break;
 			}
 			case 6:{
+				DSBN = (BenhNhan*) realloc(DSBN, (soLuong+1) * sizeof(BenhNhan));
 				themBatKy(DSBN, soLuong);
 				break;
 			}
+			case 7:{
+				xoaDau(DSBN, soLuong);
+				DSBN = (BenhNhan *) realloc (DSBN, (soLuong) * sizeof(BenhNhan));
+				break;
+			}
+			case 8: {
+				xoaCuoi(DSBN, soLuong);
+				DSBN = (BenhNhan *) realloc (DSBN, (soLuong) * sizeof(BenhNhan));
+				break;
+			}
+			case 9: {
+				xoaBatKy(DSBN, soLuong);
+				DSBN = (BenhNhan *) realloc (DSBN, (soLuong) * sizeof(BenhNhan));
+				break;
+			}
 			case 10:{
-				system("cls");
+				sapXepBenhNhanTheoTen(DSBN,soLuong);
 				break;
 			}
 		}

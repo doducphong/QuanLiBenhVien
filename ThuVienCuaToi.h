@@ -15,8 +15,8 @@ typedef struct {
 	char hoVaTen[25];
 	NgayThang ngaySinh;
 	char danToc[10];
-	int SDT;
-	int CCCD_CMND;
+	char SDT[10];
+	char CCCD_CMND[12];
 	char ngheNghiep[15];
 	char soTheBHYT[15];
 	char noiThuongTru[25];
@@ -63,11 +63,11 @@ char *getDanToc(BenhNhan *bn);
 void setDanToc(BenhNhan &bn);
 
 // Ham lay ra so dien thoai
-int getSDT(BenhNhan bn);
+char *getSDT(BenhNhan *bn);
 void setSDT(BenhNhan &bn);
 
 // Ham lay ra so CMND/CCCD
-int getCCCD_CMND(BenhNhan bn);
+char *getCCCD_CMND(BenhNhan *bn);
 void setCCCD_CMND(BenhNhan &bn);
  
 // Ham lay ra nghe nghiep
@@ -113,6 +113,9 @@ void xuatThongTinVaccine(BenhNhan bn);
 // Ham xuat danh sach vaccine
 void xuatDanhSachVaccine(BenhNhan *bn, int soLuong);
 
+// Ham kiem so sanh 2 ngay
+bool soSanhNgay(NgayThang ngay_1, NgayThang ngay_2);
+	
 // Ham them dau 
 void themDau(BenhNhan *bn, int &soluong);
 
@@ -121,6 +124,30 @@ void themCuoi(BenhNhan *bn, int &soLuong);
 
 // Them bat ky
 void themBatKy(BenhNhan *bn, int &soLuong);
+
+// Xoa dau
+void xoaDau(BenhNhan *bn, int &soluong);
+
+// Xoa cuoi
+void xoaCuoi(BenhNhan *bn, int &soLuong);
+
+// Xoa bat ky
+void xoaBatKy(BenhNhan *bn, int &soLuong);
+
+// Chuyen chu sang viet hoa
+void vietHoachucai(char *x);
+
+// Chuyen chu sang viet thuong
+void vietThuongChuCai(char *x);
+
+// Viet hoa chu cai dau 
+void vietHoaChuCaiDau(BenhNhan *bn);
+
+// Sap xep benh nhan theo ten abc
+void sapXepBenhNhanTheoTen(BenhNhan *bn, int &soLuong);
+
+// Ham tra ve so ngay chenh lech
+int soNgayChenhLech(NgayThang ngay_1, NgayThang ngay_2);
 
 
 	

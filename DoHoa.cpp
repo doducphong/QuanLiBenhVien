@@ -1,6 +1,6 @@
 #include "DoHoa.h"
 
-// Ham thay doi kich thuoc console.
+// Hàm thay d?i kích c? c?a khung cmd v?i tham s? truy?n vào là chi?u cao, chi?u r?ng.
 void resizeConsole(int width, int height)
 {
 	HWND console = GetConsoleWindow();
@@ -9,7 +9,7 @@ void resizeConsole(int width, int height)
 	MoveWindow(console, r.left, r.top, width, height, TRUE);
 }
 
-// Ham to mau.
+// Hàm tô màu.
 void textcolor(int x)
 {
 	HANDLE mau;
@@ -17,34 +17,51 @@ void textcolor(int x)
 	SetConsoleTextAttribute(mau,x);
 }
 
-// Ham dich chuyen con tro sang vi tri x y.
-void gotoxy(int x,int y)
-{    
-	HANDLE hConsoleOutput;    
-	COORD Cursor_an_Pos = {x-1,y-1};   
-	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);    
-	SetConsoleCursorPosition(hConsoleOutput , Cursor_an_Pos);
+// Hàm d?ch chuy?n con tr? d?n t?a d? x, y.
+void DiChuyenConTro(SHORT posX, SHORT posY)
+{
+    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD Position;
+    Position.X = posX;
+    Position.Y = posY;
+
+    SetConsoleCursorPosition(hStdout, Position);
 }
 
-// Ham xoa man hinh.
+// Hàm xóa màn hình.
 void XoaManHinh()
 {
-	HANDLE hOut;
-	COORD Position;
-	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	Position.X = 0;
-	Position.Y = 0;
-	SetConsoleCursorPosition(hOut, Position);
-}
+	HANDLE                     hStdOut;
+  CONSOLE_SCREEN_BUFFER_INFO csbi;
+  DWORD                      count;
+  DWORD                      cellCount;
+  COORD                      homeCoords = { 0, 0 };
 
-// Ham lay key ban phim
-/* GetAsyncKeyState(VK_ESCAPE) => b?t s? ki?n phím Esc */ 
+  hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
+  if (hStdOut == INVALID_HANDLE_VALUE) return;
 
-// Hàm t? vi?t
-void ToMau(int x, int y, char *a, int color) // x, y là t?a ð? con tr? c?n nh?y ð?n ð? vi?t, a là chu?i c?n truy?n vào, color là màu truy?n vào.
-{
-	gotoxy(x, y);
-	textcolor(color);
-	printf("%s", a);
-	textcolor(7);
+  /* Get the number of cells in the current buffer */
+  if (!GetConsoleScreenBufferInfo( hStdOut, &csbi )) return;
+  cellCount = csbi.dwSize.X *csbi.dwSize.Y;
+
+  /* Fill the entire buffer with spaces */
+  if (!FillConsoleOutputCharacter(
+    hStdOut,
+    (TCHAR) ' ',
+    cellCount,
+    homeCoords,
+    &count
+    )) return;
+
+  /* Fill the entire buffer with the current colors and attributes */
+  if (!FillConsoleOutputAttribute(
+    hStdOut,
+    csbi.wAttributes,
+    cellCount,
+    homeCoords,
+    &count
+    )) return;
+
+  /* Move the cursor home */
+  SetConsoleCursorPosition( hStdOut, homeCoords );
 }

@@ -5,7 +5,10 @@
 #include <stdbool.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
+const float TIEN_GIUONG = 20000;
 
+void chinhSuaTitle(char *title);
 
 // Ham thay doi kich thuoc console.
 void resizeConsole(int width, int height);
@@ -14,13 +17,9 @@ void resizeConsole(int width, int height);
 void textcolor(int x);
 
 // Ham dich chuyen con tro sang vi tri x y.
-void gotoxy(int x,int y);
+void DiChuyenConTro(SHORT posX, SHORT posY);
 
 // Ham xoa man hinh.
 void XoaManHinh();
 
-// Ham lay key ban phim
-/* GetAsyncKeyState(VK_ESCAPE) => b?t s? ki?n phím Esc */ 
 
-// Hàm tu viet.
-void ToMau(int x, int y, char *a, int color);

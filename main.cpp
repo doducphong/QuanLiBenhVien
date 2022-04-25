@@ -314,7 +314,7 @@ int main(int argc, char **argv)
                     sapXepBenhNhanTheoTen(DSBN, soLuong);
                     XoaManHinh();
                     textcolor(4);
-                    printf("\t\t\t\t\t%-50s\n", "DA SAP XEP GIAM DAN THEO TUOI");
+                    printf("\t\t\t\t\t%-50s\n", "DA SAP XEP TANG DAN THEO TEN");
                     system("pause");
                     XoaManHinh();
                     break;

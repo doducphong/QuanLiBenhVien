@@ -928,7 +928,7 @@ float thongKeBenhNhanMucDo3(BenhNhan *bn,int soLuong){
 	return float(dem)/soLuong*100;
 }
 
-xuatDanhSachThongKeBenhNhanTheoMucDoBenh(BenhNhan *bn,int &soLuong){
+void xuatDanhSachThongKeBenhNhanTheoMucDoBenh(BenhNhan *bn,int soLuong){
 	textcolor(4);
 	printf("\t\t\t\t\t%-50s\n", "===========DANH SACH THONG KE BENH NHAN THEO MUC DO BENH============");
 	textcolor(15);

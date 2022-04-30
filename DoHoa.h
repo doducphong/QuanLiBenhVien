@@ -22,4 +22,3 @@ void DiChuyenConTro(SHORT posX, SHORT posY);
 // Ham xoa man hinh.
 void XoaManHinh();
 
-

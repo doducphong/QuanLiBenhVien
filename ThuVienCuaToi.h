@@ -39,7 +39,7 @@ NgayThang layRaNgayThangNamHienTai();
 int soNgayTrongNam(int nam);
 
 // Tinh so ngay tu nam 1900
-int tinhSoNgayTuNam1900 (NgayThang date);
+int tinhSoNgayTuNam1900(NgayThang date);
 
 // Tinh so ngay giua hai date
 int chenhLechDate(NgayThang date_1, NgayThang date_2);
@@ -131,7 +131,7 @@ void xuatThongTinVaccine(BenhNhan bn);
 void xuatDanhSachVaccine(BenhNhan *bn, int soLuong);
 
 // Ham kiem so sanh 2 ngay
-bool soSanhNgay(NgayThang ngay_1, NgayThang ngay_2);
+int soSanhNgay(NgayThang ngay_1, NgayThang ngay_2);
 
 // Ham them dau
 void themDau(BenhNhan *bn, int &soluong);
@@ -181,7 +181,7 @@ void timKiemBenhNhanTheoTen(BenhNhan *bn, int soLuong);
 // Ham lay ra tien theo muc do
 float layTienThuocTheoMucDo(BenhNhan bn);
 
-// So tien vien phi 
+// So tien vien phi
 float soTienVienPhi(BenhNhan bn);
 
 // xuat hoa don
@@ -204,5 +204,4 @@ float thongKeBenhNhanMucDo3(BenhNhan *bn, int soLuong);
 
 // Xuat danh sach thong ke benh nhan theo muc do benh
 void xuatDanhSachThongKeBenhNhanTheoMucDoBenh(BenhNhan *bn, int soLuong);
-
 

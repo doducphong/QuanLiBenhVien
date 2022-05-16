@@ -3,12 +3,13 @@
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 int main(int argc, char **argv)
 {
+    SetConsoleTitle("QUAN LI BENH VIEN");
     BenhNhan *DSBN;
     int soLuong = 0;
     char chon_1;
     do
     {
-        textcolor(14);
+        textcolor(MAU_VANG);
         printf("\t\t\t\t\t\t   QUAN LI BENH VIEN\n");
         printf("\t\t\t\t-----------------------------------------------------------\n");
         printf("\t\t\t\t|\t%-50s%s\n", "0. Thoat", "|");
@@ -21,16 +22,19 @@ int main(int argc, char **argv)
         printf("\t\t\t\t|\t%-50s%s\n", "7. Tim kiem theo ten", "|");
         printf("\t\t\t\t|\t%-50s%s\n", "8. Tien vien phi cua DSBN den hom nay", "|");
         printf("\t\t\t\t|\t%-50s%s\n", "9. Xuat danh sach thong ke theo muc do benh", "|");
+        printf("\t\t\t\t|\t%-50s%s\n", "10. Doc file", "|");
+        printf("\t\t\t\t|\t%-50s%s\n", "11. Ghi file", "|");
         printf("\t\t\t\t-----------------------------------------------------------\n");
         printf("\t\t\t\t-\t%-48s", "Nhap lua chon cua ban: ");
         fflush(stdin);
-        scanf("%c", &chon_1);
+		chon_1 = getch();
+		printf("%c\n", chon_1);
         switch (chon_1)
         {
         case '0':
         {
             XoaManHinh();
-            textcolor(12);
+            textcolor(MAU_DO);
             printf("\t\t\t\t\t\t%-50s\n", "DA KET THUC CHUONG TRINH");
             break;
         }
@@ -41,7 +45,7 @@ int main(int argc, char **argv)
             DSBN = (BenhNhan *)malloc((soLuong) * sizeof(BenhNhan));
             nhapDanhSachBenhNhan(DSBN, soLuong);
             XoaManHinh();
-            textcolor(10);
+            textcolor(MAU_XANH_LA_CAY);
             printf("\t\t\t\t\t\t%-50s\n", "DA NHAP XONG DANH SACH BENH NHAN");
             system("pause");
             XoaManHinh();
@@ -52,7 +56,7 @@ int main(int argc, char **argv)
             if (soLuong < 1)
             {
                 XoaManHinh();
-                textcolor(12);
+                textcolor(MAU_DO);
                 printf("\t\t\t\t\t%-50s\n", "DANH SACH BENH NHAN DANG TRONG");
                 system("pause");
                 XoaManHinh();
@@ -60,7 +64,7 @@ int main(int argc, char **argv)
             }
             XoaManHinh();
             xuatDanhSachBenhNhan(DSBN, soLuong);
-            textcolor(14);
+            textcolor(MAU_VANG);
             printf("\n");
             system("pause");
             XoaManHinh();
@@ -71,7 +75,7 @@ int main(int argc, char **argv)
             if (soLuong < 1)
             {
                 XoaManHinh();
-                textcolor(12);
+                textcolor(MAU_DO);
                 printf("\t\t\t\t\t%-50s\n", "DANH SACH VACCINE DANG TRONG");
                 system("pause");
                 XoaManHinh();
@@ -79,7 +83,7 @@ int main(int argc, char **argv)
             }
             XoaManHinh();
             xuatDanhSachVaccine(DSBN, soLuong);
-            textcolor(14);
+            textcolor(MAU_VANG);
             printf("\n");
             system("pause");
             XoaManHinh();
@@ -91,7 +95,7 @@ int main(int argc, char **argv)
             XoaManHinh();
             do
             {
-                textcolor(14);
+                textcolor(MAU_VANG);
                 printf("\t\t\t\t\t\t\tTHEM BENH NHAN\n");
                 printf("\t\t\t\t-----------------------------------------------------------\n");
                 printf("\t\t\t\t|\t%-50s%s\n", "0. Tro ve", "|");
@@ -101,7 +105,7 @@ int main(int argc, char **argv)
                 printf("\t\t\t\t-----------------------------------------------------------\n");
                 printf("\t\t\t\t-\t%-48s", "Nhap lua chon cua ban: ");
                 fflush(stdin);
-                scanf("%c", &chon_2);
+				chon_2 = getch();
                 switch (chon_2)
                 {
                 case '0':
@@ -121,7 +125,7 @@ int main(int argc, char **argv)
                     }
                     themDau(DSBN, soLuong);
                     XoaManHinh();
-                    textcolor(10);
+                    textcolor(MAU_XANH_LA_CAY);
                     printf("\t\t\t\t\t%-50s\n", "DA THEM BENH NHAN VAO DAU");
                     system("pause");
                     XoaManHinh();
@@ -139,7 +143,7 @@ int main(int argc, char **argv)
                     }
                     themCuoi(DSBN, soLuong);
                     XoaManHinh();
-                    textcolor(10);
+                    textcolor(MAU_XANH_LA_CAY);
                     printf("\t\t\t\t\t%-50s\n", "DA THEM BENH NHAN VAO CUOI");
                     system("pause");
                     XoaManHinh();
@@ -157,7 +161,7 @@ int main(int argc, char **argv)
                     }
                     themBatKy(DSBN, soLuong);
                     XoaManHinh();
-                    textcolor(10);
+                    textcolor(MAU_XANH_LA_CAY);
                     printf("\t\t\t\t\t%-50s\n", "DA THEM BENH NHAN VAO VI TRI THEM");
                     system("pause");
                     XoaManHinh();
@@ -166,7 +170,7 @@ int main(int argc, char **argv)
                 default:
                 {
                     XoaManHinh();
-                    textcolor(12);
+                    textcolor(MAU_DO);
                     printf("\t\t\t\t\t\t   %-50s\n", "LUA CHON SAI NHAP LAI");
                     break;
                 }
@@ -181,7 +185,7 @@ int main(int argc, char **argv)
             if (soLuong < 1)
             {
                 XoaManHinh();
-                textcolor(12);
+                textcolor(MAU_DO);
                 printf("\t\t\t\t\t%-50s\n", "DANH SACH BENH NHAN DANG TRONG");
                 system("pause");
                 XoaManHinh();
@@ -194,7 +198,7 @@ int main(int argc, char **argv)
                 {
                     break;
                 }
-                textcolor(14);
+                textcolor(MAU_VANG);
                 printf("\t\t\t\t\t%-50s\n", "XOA BENH NHAN");
                 printf("\t\t\t\t-----------------------------------------------------------\n");
                 printf("\t\t\t\t|\t%-50s%s\n", "0. Tro ve", "|");
@@ -204,7 +208,7 @@ int main(int argc, char **argv)
                 printf("\t\t\t\t-----------------------------------------------------------\n");
                 printf("\t\t\t\t-\t%-48s", "Nhap lua chon cua ban: ");
                 fflush(stdin);
-                scanf("%c", &chon_2);
+                chon_2 = getch();
                 switch (chon_2)
                 {
                 case '0':
@@ -217,7 +221,7 @@ int main(int argc, char **argv)
                     xoaDau(DSBN, soLuong);
                     DSBN = (BenhNhan *)realloc(DSBN, (soLuong) * sizeof(BenhNhan));
                     XoaManHinh();
-                    textcolor(10);
+                    textcolor(MAU_XANH_LA_CAY);
                     printf("\t\t\t\t\t%-50s\n", "DA XOA BENH NHANH DAU TIEN");
                     system("pause");
                     XoaManHinh();
@@ -228,7 +232,7 @@ int main(int argc, char **argv)
                     xoaCuoi(DSBN, soLuong);
                     DSBN = (BenhNhan *)realloc(DSBN, (soLuong) * sizeof(BenhNhan));
                     XoaManHinh();
-                    textcolor(10);
+                    textcolor(MAU_XANH_LA_CAY);
                     printf("\t\t\t\t\t%-50s\n", "DA XOA BENH NHANH CUOI CUNG");
                     system("pause");
                     XoaManHinh();
@@ -239,7 +243,7 @@ int main(int argc, char **argv)
                     xoaBatKy(DSBN, soLuong);
                     DSBN = (BenhNhan *)realloc(DSBN, (soLuong) * sizeof(BenhNhan));
                     XoaManHinh();
-                    textcolor(10);
+                    textcolor(MAU_XANH_LA_CAY);
                     printf("\t\t\t\t\t%-50s\n", "DA XOA BENH NHAN O VI TRI CHON");
                     system("pause");
                     XoaManHinh();
@@ -248,7 +252,7 @@ int main(int argc, char **argv)
                 default:
                 {
                     XoaManHinh();
-                    textcolor(12);
+                    textcolor(MAU_DO);
                     printf("\t\t\t\t\t%-50s\n", "LUA CHON SAI NHAP LAI");
                     break;
                 }
@@ -261,7 +265,7 @@ int main(int argc, char **argv)
             if (soLuong < 1)
             {
                 XoaManHinh();
-                textcolor(12);
+                textcolor(MAU_DO);
                 printf("\t\t\t\t\t%-50s\n", "DANH SACH BENH NHAN DANG TRONG");
                 system("pause");
                 XoaManHinh();
@@ -271,7 +275,7 @@ int main(int argc, char **argv)
             XoaManHinh();
             do
             {
-                textcolor(14);
+                textcolor(MAU_VANG);
                 printf("\t\t\t\t-----------------------------------------------------------\n");
                 printf("\t\t\t\t|\t%-50s%s\n", "0. Tro ve", "|");
                 printf("\t\t\t\t|\t%-50s%s\n", "1. Sap xep theo tuoi", "|");
@@ -279,7 +283,7 @@ int main(int argc, char **argv)
                 printf("\t\t\t\t-----------------------------------------------------------\n");
                 printf("\t\t\t\t-\t%-48s", "Nhap lua chon cua ban: ");
                 fflush(stdin);
-                scanf("%c", &chon_2);
+                chon_2 = getch();
                 switch (chon_2)
                 {
                 case '0':
@@ -293,7 +297,7 @@ int main(int argc, char **argv)
                     XoaManHinh();
                     do
                     {
-                        textcolor(14);
+                        textcolor(MAU_VANG);
                         printf("\t\t\t\t\t%-50s\n", "SAP XEP THEO TUOI");
                         printf("\t\t\t\t-----------------------------------------------------------\n");
                         printf("\t\t\t\t|\t%-50s%s\n", "0. Tro ve", "|");
@@ -302,7 +306,7 @@ int main(int argc, char **argv)
                         printf("\t\t\t\t-----------------------------------------------------------\n");
                         printf("\t\t\t\t-\t%-48s", "Nhap lua chon cua ban: ");
                         fflush(stdin);
-                        scanf("%c", &chon_3);
+                        chon_3 = getch();
                         switch (chon_3)
                         {
                         case '0':
@@ -314,7 +318,7 @@ int main(int argc, char **argv)
                         {
                             sapXepTangDanTheoTuoi(DSBN, soLuong);
                             XoaManHinh();
-                            textcolor(10);
+                            textcolor(MAU_XANH_LA_CAY);
                             printf("\t\t\t\t\t%-50s\n", "DA SAP XEP TANG DAN THEO TUOI");
                             system("pause");
                             XoaManHinh();
@@ -324,7 +328,7 @@ int main(int argc, char **argv)
                         {
                             sapXepGiamDanTheoTuoi(DSBN, soLuong);
                             XoaManHinh();
-                            textcolor(10);
+                            textcolor(MAU_XANH_LA_CAY);
                             printf("\t\t\t\t\t%-50s\n", "DA SAP XEP GIAM DAN THEO TUOI");
                             system("pause");
                             XoaManHinh();
@@ -333,7 +337,7 @@ int main(int argc, char **argv)
                         default:
                         {
                             XoaManHinh();
-                            textcolor(12);
+                            textcolor(MAU_DO);
                             printf("\t\t\t\t\t%-50s\n", "LUA CHON SAI NHAP LAI");
                             break;
                         }
@@ -345,7 +349,7 @@ int main(int argc, char **argv)
                 {
                     sapXepBenhNhanTheoTen(DSBN, soLuong);
                     XoaManHinh();
-                    textcolor(10);
+                    textcolor(MAU_XANH_LA_CAY);
                     printf("\t\t\t\t\t%-50s\n", "DA SAP XEP TANG DAN THEO TEN");
                     system("pause");
                     XoaManHinh();
@@ -354,7 +358,7 @@ int main(int argc, char **argv)
                 default:
                 {
                     XoaManHinh();
-                    textcolor(12);
+                    textcolor(MAU_DO);
                     printf("\t\t\t\t\t%-50s\n", "LUA CHON SAI NHAP LAI");
                     break;
                 }
@@ -367,7 +371,7 @@ int main(int argc, char **argv)
             if (soLuong < 1)
             {
                 XoaManHinh();
-                textcolor(12);
+                textcolor(MAU_DO);
                 printf("\t\t\t\t\t%-50s\n", "DANH SACH BENH NHAN DANG TRONG");
                 system("pause");
                 XoaManHinh();
@@ -385,7 +389,7 @@ int main(int argc, char **argv)
             if (soLuong < 1)
             {
                 XoaManHinh();
-                textcolor(12);
+                textcolor(MAU_DO);
                 printf("\t\t\t\t\t%-50s\n", "DANH SACH BENH NHAN DANG TRONG");
                 system("pause");
                 XoaManHinh();
@@ -393,7 +397,7 @@ int main(int argc, char **argv)
             }
             XoaManHinh();
             xuatDanhSachHoaDon(DSBN, soLuong);
-            textcolor(14);
+            textcolor(MAU_VANG);
             printf("\n");
             system("pause");
             XoaManHinh();
@@ -404,7 +408,7 @@ int main(int argc, char **argv)
             if (soLuong < 1)
             {
                 XoaManHinh();
-                textcolor(12);
+                textcolor(MAU_DO);
                 printf("\t\t\t\t\t%-50s\n", "DANH SACH BENH NHAN DANG TRONG");
                 system("pause");
                 XoaManHinh();
@@ -412,21 +416,64 @@ int main(int argc, char **argv)
             }
             XoaManHinh();
             xuatDanhSachThongKeBenhNhanTheoMucDoBenh(DSBN, soLuong);
-            textcolor(14);
+            textcolor(MAU_VANG);
             printf("\n");
             system("pause");
             XoaManHinh();
             break;
         }
+//        case 10:
+//		{
+//			if (soLuong < 1)
+//            {
+//                XoaManHinh();
+//                textcolor(MAU_DO);
+//                printf("\t\t\t\t\t%-50s\n", "DANH SACH BENH NHAN DANG TRONG");
+//                system("pause");
+//                XoaManHinh();
+//                break;
+//            }
+//            XoaManHinh();
+//            printf("Nhap ten file can doc:");
+//            fflush(stdin);
+//            gets(tenFile);
+//            docFileDanhSachBenhNhan(DSBN, soLuong, tenFile);
+//            textcolor(MAU_VANG);
+//            printf("\n");
+//            system("pause");
+//            XoaManHinh();
+//			break;
+//		}
+//		case 11:
+//		{
+//				if (soLuong < 1)
+//            {
+//                XoaManHinh();
+//                textcolor(MAU_DO);
+//                printf("\t\t\t\t\t%-50s\n", "DANH SACH BENH NHAN DANG TRONG");
+//                system("pause");
+//                XoaManHinh();
+//                break;
+//            }
+//            XoaManHinh();
+//            ghiFileDanhSachBenhNhan(DSBN, soLuong, tenFile);
+//            textcolor(MAU_VANG);
+//            printf("DA GHI FILE");
+//            printf("\n");
+//            system("pause");
+//            XoaManHinh();
+//			break;
+//		}
         default:
         {
             XoaManHinh();
-            textcolor(12);
+            textcolor(MAU_DO);
             printf("\t\t\t\t\t%-50s\n", "LUA CHON CUA BAN KHONG NAM TRONG DANH SACH");
             break;
         }
         }
     } while (chon_1 != '0');
-    return 0;
+	
+	return 0;
 }
 

@@ -6,15 +6,15 @@ NgayThang layRaNgayThangNamHienTai()
     time_t t = time(NULL);
 
     struct tm tm = *localtime(&t);
-    localTime.nam = tm.tm_year + 1900;
-    localTime.thang = tm.tm_mon + 1;
+    localTime.nam = tm.tm_year + 1900; // Vi nam trong localTime tinh tu nam 1900
+    localTime.thang = tm.tm_mon + 1;   // Vi thang trong localTime tinh tu 0 den 11
     localTime.ngay = tm.tm_mday;
     return localTime;
 }
 
 int soNgayTrongNam(int nam)
 {
-    return laNamNhuan(nam) ? 366 : 365;
+    return laNamNhuan(nam) ? SO_NGAY_CUA_NAM_NHUAN : SO_NGAY_CUA_NAM_THUONG;
 }
 
 int tinhSoNgayTuNam1900(NgayThang date)
@@ -38,7 +38,7 @@ int chenhLechDate(NgayThang date_1, NgayThang date_2)
 
 bool laNamNhuan(int nam)
 {
-    if ((nam % 4 == 0 && nam % 100 != 0) || nam % 400 == 0)
+    if ((nam % 4 == 0 && nam % 100 != 0) || nam % 400 == 0) // Dieu kien nam nhuan
     {
         return true;
     }
@@ -105,7 +105,7 @@ bool kiemTraChuoiPhaiLaChuoiSo(char a[])
 {
     for (int i = 0; i < strlen(a); i++)
     {
-        if (a[i] > 57 || a[i] < 48)
+        if (a[i] > KI_TU_SO_9_TRONG_ASCII || a[i] < KI_TU_SO_0_TRONG_ASCII)
         {
             return false;
         }
@@ -368,6 +368,7 @@ void nhapBenhNhan(BenhNhan &bn)
         }
         case '0':
         {
+        	bn.soTheBHYT[0] = NULL;
             break;
         }
         default:
@@ -432,7 +433,7 @@ void nhapBenhNhan(BenhNhan &bn)
         printf("\t0. Chua tiem\n");
         printf("\tNhap lua chon cua ban: ");
         fflush(stdin);
-        scanf("%c", &luaChon);
+		scanf("%c", &luaChon);
         switch (luaChon)
         {
         case '1':
@@ -469,6 +470,14 @@ void nhapBenhNhan(BenhNhan &bn)
                      bn.mui_1.ngayTiem.nam < 1900 ||
                      soSanhNgay(bn.ngaySinh, bn.mui_1.ngayTiem) > 0 ||
                      soSanhNgay(bn.mui_1.ngayTiem, ngayHienTai) > 0);
+            bn.mui_2.tenVaccine[0] = NULL;
+            bn.mui_2.ngayTiem.nam = NULL;
+            bn.mui_2.ngayTiem.ngay = NULL;
+            bn.mui_2.ngayTiem.thang = NULL;
+            bn.mui_3.tenVaccine[0] = NULL;
+            bn.mui_3.ngayTiem.nam = NULL;
+            bn.mui_3.ngayTiem.ngay = NULL;
+            bn.mui_3.ngayTiem.thang = NULL;
             break;
         }
         case '2':
@@ -532,6 +541,10 @@ void nhapBenhNhan(BenhNhan &bn)
                     printf("Ngay khong hop le vui long nhap lai !!!\n");
                 }
             } while (!laNgayHopLe(getNgay(bn.mui_2.ngayTiem), getThang(bn.mui_2.ngayTiem), getNam(bn.mui_2.ngayTiem)) || chenhLechDate(bn.mui_1.ngayTiem, bn.mui_2.ngayTiem) < 90);
+            bn.mui_3.tenVaccine[0] = NULL;
+            bn.mui_3.ngayTiem.nam = NULL;
+            bn.mui_3.ngayTiem.ngay = NULL;
+            bn.mui_3.ngayTiem.thang = NULL;
             break;
         }
         case '3':
@@ -620,7 +633,7 @@ void nhapBenhNhan(BenhNhan &bn)
                 {
                     printf("Mui 2 cua ban chua du 90 ngay tu luc tiem mui 2\n");
                 }
-            } while (!laNgayHopLe(getNgay(bn.mui_3.ngayTiem), getThang(bn.mui_3.ngayTiem), getNam(bn.mui_3.ngayTiem)) || soSanhNgay(bn.mui_2.ngayTiem, bn.mui_3.ngayTiem) || chenhLechDate(bn.mui_2.ngayTiem, bn.mui_3.ngayTiem) < 90);
+            } while (!laNgayHopLe(getNgay(bn.mui_3.ngayTiem), getThang(bn.mui_3.ngayTiem), getNam(bn.mui_3.ngayTiem)) || chenhLechDate(bn.mui_2.ngayTiem, bn.mui_3.ngayTiem) < 90);
             break;
         }
         }
@@ -647,10 +660,10 @@ void nhapDanhSachBenhNhan(BenhNhan *bn, int soLuong)
 {
     for (int i = 0; i < soLuong; i++)
     {
-        textcolor(11);
+        textcolor(MAU_XANH_NGOC);
         if (i % 2 == 0)
         {
-            textcolor(10);
+            textcolor(MAU_XANH_LA_CAY);
         }
         printf("===== NHAP THONG TIN BENH NHAN THU %d =====\n", i + 1);
         nhapBenhNhan(bn[i]);
@@ -659,7 +672,7 @@ void nhapDanhSachBenhNhan(BenhNhan *bn, int soLuong)
 
 void xuatDanhSachBenhNhan(BenhNhan *bn, int soLuong)
 {
-    textcolor(14);
+    textcolor(MAU_VANG);
     printf("\t\t\t\t\t\t\t\t\t\t\t========== DANH SACH BENH NHAN ==========\n");
     printf("%-25s", "Ho va ten");
     printf("%-10s\t", "Ngay sinh");
@@ -675,10 +688,10 @@ void xuatDanhSachBenhNhan(BenhNhan *bn, int soLuong)
     printf("%-10s\n", "Muc do");
     for (int i = 0; i < soLuong; i++)
     {
-        textcolor(11);
+        textcolor(MAU_XANH_NGOC);
         if (i % 2 == 0)
         {
-            textcolor(10);
+            textcolor(MAU_XANH_LA_CAY);
         }
         xuatBenhNhan(bn[i]);
     }
@@ -706,7 +719,7 @@ void xuatThongTinVaccine(BenhNhan bn)
 
 void xuatDanhSachVaccine(BenhNhan *bn, int soLuong)
 {
-    textcolor(14);
+    textcolor(MAU_VANG);
     printf("\t\t\t\t\t\t\t\t ========== DANH SACH THONG TIN VACCINE CUA BENH NHAN ==========\n");
     printf("\t%-25s", "Ho va ten");
     printf("\t%-15s", "Mui 1");
@@ -717,15 +730,16 @@ void xuatDanhSachVaccine(BenhNhan *bn, int soLuong)
     printf("\t\t%-15s\t\t\t\n", "Ngay tiem mui 3");
     for (int i = 0; i < soLuong; i++)
     {
-        textcolor(11);
+        textcolor(MAU_XANH_NGOC);
         if (i % 2 == 0)
         {
-            textcolor(10);
+            textcolor(MAU_XANH_LA_CAY);
         }
         xuatThongTinVaccine(bn[i]);
         printf("\n");
     }
 }
+
 int soSanhNgay(NgayThang ngay_1, NgayThang ngay_2)
 {
     if (ngay_1.ngay == ngay_2.ngay && ngay_1.thang == ngay_2.thang && ngay_1.nam == ngay_2.nam)
@@ -761,11 +775,11 @@ void themDau(BenhNhan *bn, int &soLuong)
     BenhNhan giaTriThem;
     if (soLuong % 2 == 0)
     {
-        textcolor(11);
+        textcolor(MAU_XANH_NGOC);
     }
     else
     {
-        textcolor(10);
+        textcolor(MAU_XANH_LA_CAY);
     }
     printf("===== NHAP THONG TIN BENH NHAN CAN THEM VAO DANH SACH =====\n");
     nhapBenhNhan(giaTriThem);
@@ -781,11 +795,11 @@ void themCuoi(BenhNhan *bn, int &soLuong)
 {
     if (soLuong % 2 == 0)
     {
-        textcolor(11);
+        textcolor(MAU_XANH_NGOC);
     }
     else
     {
-        textcolor(10);
+        textcolor(MAU_XANH_LA_CAY);
     }
     BenhNhan giaTriThem;
 
@@ -799,11 +813,11 @@ void themBatKy(BenhNhan *bn, int &soLuong)
 {
     if (soLuong % 2 == 0)
     {
-        textcolor(11);
+        textcolor(MAU_XANH_NGOC);
     }
     else
     {
-        textcolor(10);
+        textcolor(MAU_XANH_LA_CAY);
     }
     BenhNhan giaTriThem;
     if (soLuong == 0)
@@ -981,7 +995,7 @@ void timKiemBenhNhanTheoTen(BenhNhan *bn, int soLuong)
     {
         if (strcmp((getTenBenhNhan(&bn[i])), ten) == 0)
         {
-            textcolor(11);
+            textcolor(MAU_XANH_NGOC);
             printf("\t\t\t\t\t\t\t\t\t\t\t========== THONG TIN BENH NHAN TIM KIEM ==========\n");
             printf("%-25s", "Ho va ten");
             printf("%-10s\t", "Ngay sinh");
@@ -995,24 +1009,37 @@ void timKiemBenhNhanTheoTen(BenhNhan *bn, int soLuong)
             printf("%-10s\t", "So giuong");
             printf("%-15s\t\t", "Ngay nhap vien");
             printf("%-10s\n", "Muc do");
-            textcolor(10);
+            textcolor(MAU_XANH_LA_CAY);
             xuatBenhNhan(bn[i]);
-            textcolor(11);
-            textcolor(11);
+            textcolor(MAU_XANH_NGOC);
+            printf("\n");
             printf("\t\t\t\t\t\t\t\t ========== THONG TIN VACCINE CUA BENH NHAN TIM KIEM ==========\n");
             printf("\t%-25s", "Ho va ten");
             printf("\t%-15s", "Mui 1");
             printf("\t\t%-15s", "Ngay tiem mui 1");
-            printf("\t\t%-15s", "Mui 2");
+            printf("\t\t\t%-15s", "Mui 2");
             printf("\t\t%-15s", "Ngay tiem mui 2");
             printf("\t\t\t%-15s", "Mui 3");
             printf("\t\t%-15s\t\t\t\t\n", "Ngay tiem mui 3");
             xuatThongTinVaccine(bn[i]);
             printf("\n");
+            textcolor(MAU_VANG);
+		    printf("\t\t\t\t\t\t========== THONG TIN TIEN VIEN PHI TINH DEN HOM NAY CUA CAC BENH NHAN ==========\n");
+		    printf("\t%-25s\t", "Ho va ten");
+		    printf("%-15s\t\t", "Ngay nhap vien");
+		    printf("%-10s\t", "Hom nay");
+		    printf("%-15s\t\t", "Nam vien(ngay)");
+		    printf("%-15s\t\t", "Thuoc(VND)");
+		    printf("%-15s\t", "Giuong(VND)");
+		    printf("%-15s\t\t", "Tong cong(VND)");
+		    printf("%-15s\t", "BHYT(VND)");
+		    printf("%-20s", "So tien phai tra(VND)\n");
+		    xuatHoaDon(bn[i]);
+		    printf("\n");
             return;
         }
     }
-    textcolor(12);
+    textcolor(MAU_DO);
     printf("BENH NHAN KHONG TON TAI TRONG DANH SACH\n");
 }
 
@@ -1034,7 +1061,7 @@ float layTienThuocTheoMucDo(BenhNhan bn)
 
 float soTienTruBHYT(BenhNhan bn)
 {
-    return strlen(getBhyt(&bn)) != 1 ? (soTienVienPhi(bn) * 80) / 100 : 0;
+    return strlen(getBhyt(&bn)) != 0 ? (soTienVienPhi(bn) * 80) / 100 : 0;
 }
 
 float soTienVienPhi(BenhNhan bn)
@@ -1062,7 +1089,7 @@ void xuatHoaDon(BenhNhan bn)
 
 void xuatDanhSachHoaDon(BenhNhan *bn, int soLuong)
 {
-    textcolor(14);
+    textcolor(MAU_VANG);
     printf("\t\t\t\t\t\t========== DANH SACH TIEN VIEN PHI TINH DEN HOM NAY CUA CAC BENH NHAN ==========\n");
     printf("\t%-25s\t", "Ho va ten");
     printf("%-15s\t\t", "Ngay nhap vien");
@@ -1075,10 +1102,10 @@ void xuatDanhSachHoaDon(BenhNhan *bn, int soLuong)
     printf("%-20s", "So tien phai tra(VND)\n");
     for (int i = 0; i < soLuong; i++)
     {
-        textcolor(11);
+        textcolor(MAU_XANH_NGOC);
         if (i % 2 == 0)
         {
-            textcolor(10);
+            textcolor(MAU_XANH_LA_CAY);
         }
         xuatHoaDon(bn[i]);
     }
@@ -1125,14 +1152,107 @@ float thongKeBenhNhanMucDo3(BenhNhan *bn, int soLuong)
 
 void xuatDanhSachThongKeBenhNhanTheoMucDoBenh(BenhNhan *bn, int soLuong)
 {
-    textcolor(14);
+    textcolor(MAU_VANG);
     printf("\t\t\t\t\t%-50s\n", "=========== DANH SACH THONG KE BENH NHAN THEO MUC DO BENH ============");
     printf("\t\t\t\t\t\t\tMuc do benh\t\tTi le\n");
-    textcolor(10);
+    textcolor(MAU_XANH_LA_CAY);
     printf("\t\t\t\t\t\t\tMuc do 1\t\t%.2f%c\n", thongKeBenhNhanMucDo1(bn, soLuong), 37);
-    textcolor(11);
+    textcolor(MAU_XANH_NGOC);
     printf("\t\t\t\t\t\t\tMuc do 2\t\t%.2f%c\n", thongKeBenhNhanMucDo2(bn, soLuong), 37);
-    textcolor(10);
+    textcolor(MAU_XANH_LA_CAY);
     printf("\t\t\t\t\t\t\tMuc do 3\t\t%.2f%c\n", thongKeBenhNhanMucDo3(bn, soLuong), 37);
+}
+
+void docFileDanhSachBenhNhan(BenhNhan *&bn, int &soLuong, char *fname) {
+	FILE* f;
+	
+	f = fopen(fname, "r");
+	if (f == NULL) {
+		printf("\n\n\t\t Loi doc file !!!");
+		fclose(f);
+		return;
+	}
+	fscanf(f, "%d", &soLuong);
+	printf("%d", soLuong);
+	bn = (BenhNhan *) malloc (soLuong * sizeof(BenhNhan));
+	for(int i = 0; i < soLuong; i++) {
+		fscanf(f, "%c\n", &bn[i].CCCD_CMND);
+		printf("\n2");
+		fscanf(f, "%s", &bn[i].danToc);
+		//fscanf(f, "%s", &bn[i].gioiTinh);
+		fscanf(f, "%s", &bn[i].hoVaTen);
+		fscanf(f, "%s", &bn[i].khoaDieuTri);
+		fscanf(f, "%d", &bn[i].mucDo);
+		fscanf(f, "%d", &bn[i].ngayNhapVien.ngay);
+		fscanf(f, "%d", &bn[i].ngayNhapVien.thang);
+		fscanf(f, "%d", &bn[i].ngayNhapVien.nam);
+		fscanf(f, "%d", &bn[i].ngaySinh.ngay);
+		fscanf(f, "%d", &bn[i].ngaySinh.thang);
+		fscanf(f, "%d", &bn[i].ngaySinh.nam);
+		fscanf(f, "%s", &bn[i].ngheNghiep);
+		fscanf(f, "%s", &bn[i].noiThuongTru);
+		fscanf(f, "%s", &bn[i].SoDienThoai);
+		fscanf(f, "%s", &bn[i].soTheBHYT);
+		fscanf(f, "%s", &bn[i].soGiuong);
+		fscanf(f, "%s", &bn[i].mui_1.tenVaccine);
+		fscanf(f, "%s", &bn[i].mui_2.tenVaccine);
+		fscanf(f, "%s", &bn[i].mui_3.tenVaccine);
+		fscanf(f, "%d", &bn[i].mui_1.ngayTiem.ngay);
+		fscanf(f, "%d", &bn[i].mui_1.ngayTiem.thang);
+		fscanf(f, "%d", &bn[i].mui_1.ngayTiem.nam);
+		fscanf(f, "%d", &bn[i].mui_2.ngayTiem.ngay);
+		fscanf(f, "%d", &bn[i].mui_2.ngayTiem.thang);
+		fscanf(f, "%d", &bn[i].mui_2.ngayTiem.nam);
+		fscanf(f, "%d", &bn[i].mui_3.ngayTiem.ngay);
+		fscanf(f, "%d", &bn[i].mui_3.ngayTiem.thang);
+		fscanf(f, "%d", &bn[i].mui_3.ngayTiem.nam);
+	}
+	fclose(f);
+}
+
+void ghiFileDanhSachBenhNhan(BenhNhan* bn, int soLuong, char *fname) {
+	FILE* f;
+	f = fopen(fname, "w");
+	if (f == NULL) {
+		printf("\n\n\t\t Loi mo file !!!");
+		fclose(f);
+		return;
+	}
+	fprintf(f, "%d\n", soLuong);
+	printf("%s", bn[0].CCCD_CMND);
+		system("pause");
+	for (int i = 0; i < soLuong; i++)
+	{
+		fprintf(f, "%c\n", bn[i].CCCD_CMND);
+		fprintf(f, "%s\n", bn[i].danToc);
+		//fprintf(f, "%s\n", bn[i].gioiTinh);
+		fprintf(f, "%s\n", bn[i].hoVaTen);
+		fprintf(f, "%s\n", bn[i].khoaDieuTri);
+		fprintf(f, "%d\n", bn[i].mucDo);
+		fprintf(f, "%d\n", bn[i].ngayNhapVien.ngay);
+		fprintf(f, "%d\n", bn[i].ngayNhapVien.thang);
+		fprintf(f, "%d\n", bn[i].ngayNhapVien.nam);
+		fprintf(f, "%d\n", bn[i].ngaySinh.ngay);
+		fprintf(f, "%d\n", bn[i].ngaySinh.thang);
+		fprintf(f, "%d\n", bn[i].ngaySinh.nam);
+		fprintf(f, "%s\n", bn[i].ngheNghiep);
+		fprintf(f, "%s\n", bn[i].noiThuongTru);
+		fprintf(f, "%s\n", bn[i].SoDienThoai);
+		fprintf(f, "%s\n", bn[i].soTheBHYT);
+		fprintf(f, "%s\n", bn[i].soGiuong);
+		fprintf(f, "%s\n", bn[i].mui_1.tenVaccine);
+		fprintf(f, "%s\n", bn[i].mui_2.tenVaccine);
+		fprintf(f, "%s\n", bn[i].mui_3.tenVaccine);
+		fprintf(f, "%d\n", bn[i].mui_1.ngayTiem.ngay);
+		fprintf(f, "%d\n", bn[i].mui_1.ngayTiem.thang);
+		fprintf(f, "%d\n", bn[i].mui_1.ngayTiem.nam);
+		fprintf(f, "%d\n", bn[i].mui_2.ngayTiem.ngay);
+		fprintf(f, "%d\n", bn[i].mui_2.ngayTiem.thang);
+		fprintf(f, "%d\n", bn[i].mui_2.ngayTiem.nam);
+		fprintf(f, "%d\n", bn[i].mui_3.ngayTiem.ngay);
+		fprintf(f, "%d\n", bn[i].mui_3.ngayTiem.thang);
+		fprintf(f, "%d\n", bn[i].mui_3.ngayTiem.nam);
+	}
+	fclose(f);
 }
 

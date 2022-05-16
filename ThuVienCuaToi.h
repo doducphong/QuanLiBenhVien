@@ -1,5 +1,13 @@
 #include "DoHoa.h"
 
+int const SO_NGAY_CUA_NAM_NHUAN = 366;
+int const SO_NGAY_CUA_NAM_THUONG = 365;
+int const KI_TU_SO_9_TRONG_ASCII = 57;
+int const KI_TU_SO_0_TRONG_ASCII = 48;
+int const MAU_XANH_NGOC = 11;
+int const MAU_XANH_LA_CAY = 10;
+int const MAU_VANG = 14;
+int const MAU_DO = 12;
 typedef struct
 {
     int ngay;
@@ -205,3 +213,8 @@ float thongKeBenhNhanMucDo3(BenhNhan *bn, int soLuong);
 // Xuat danh sach thong ke benh nhan theo muc do benh
 void xuatDanhSachThongKeBenhNhanTheoMucDoBenh(BenhNhan *bn, int soLuong);
 
+// Doc file danh sach benh nhan
+void docFileDanhSachBenhNhan(BenhNhan *&bn, int &soLuong, char *fname);
+
+// Ghi file danh sach benh nhan
+void ghiFileDanhSachBenhNhan(BenhNhan* bn, int soLuong, char *fname);

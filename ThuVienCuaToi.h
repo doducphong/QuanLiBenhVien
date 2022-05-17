@@ -10,34 +10,34 @@ int const MAU_VANG = 14;
 int const MAU_DO = 12;
 typedef struct
 {
-    int ngay;
-    int thang;
-    int nam;
+	int ngay;
+	int thang;
+	int nam;
 } NgayThang;
 
 typedef struct
 {
-    NgayThang ngayTiem;
-    char tenVaccine[50];
+	NgayThang ngayTiem;
+	char tenVaccine[50];
 } Vaccine;
 
 typedef struct
 {
-    char hoVaTen[50];
-    NgayThang ngaySinh;
-    char danToc[50];
-    char SoDienThoai[50];
-    char CCCD_CMND[50];
-    char ngheNghiep[50];
-    char soTheBHYT[50];
-    char noiThuongTru[50];
-    char khoaDieuTri[50];
-    char soGiuong[50];
-    NgayThang ngayNhapVien;
-    int mucDo;
-    Vaccine mui_1;
-    Vaccine mui_2;
-    Vaccine mui_3;
+	char hoVaTen[50];
+	NgayThang ngaySinh;
+	char danToc[50];
+	char SoDienThoai[50];
+	char CCCD_CMND[50];
+	char ngheNghiep[50];
+	char soTheBHYT[50];
+	char noiThuongTru[50];
+	char khoaDieuTri[50];
+	char soGiuong[50];
+	NgayThang ngayNhapVien;
+	int mucDo;
+	Vaccine mui_1;
+	Vaccine mui_2;
+	Vaccine mui_3;
 } BenhNhan;
 
 // Ham lay ra ngay thang nam hien tai
@@ -217,4 +217,4 @@ void xuatDanhSachThongKeBenhNhanTheoMucDoBenh(BenhNhan *bn, int soLuong);
 void docFileDanhSachBenhNhan(BenhNhan *&bn, int &soLuong, char *fname);
 
 // Ghi file danh sach benh nhan
-void ghiFileDanhSachBenhNhan(BenhNhan* bn, int soLuong, char *fname);
+void ghiFileDanhSachBenhNhan(BenhNhan *bn, int soLuong, char *fname);

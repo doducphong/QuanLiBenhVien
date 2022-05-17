@@ -305,6 +305,7 @@ void nhapBenhNhan(BenhNhan &bn)
 	{
 		printf("- Dan toc: ");
 		setDanToc(bn);
+		vietHoaChuCaiDau(bn.danToc);
 		if (strlen(getDanToc(&bn)) > 10 || strlen(getDanToc(&bn)) < 1)
 		{
 			printf("Dan toc khong hop len vui long nhap lai !!!\n");
@@ -336,6 +337,7 @@ void nhapBenhNhan(BenhNhan &bn)
 	{
 		printf("- Nhap nghe nghiep: ");
 		setNgheNghiep(bn);
+		vietHoaChuCaiDau(bn.ngheNghiep);
 		if (strlen(getNgheNghiep(&bn)) > 15 || strlen(getNgheNghiep(&bn)) < 1)
 		{
 			printf("Nghe nghiep khong hop le vui long nhap lai !!! \n");
@@ -383,6 +385,7 @@ void nhapBenhNhan(BenhNhan &bn)
 	{
 		printf("- Nhap khoa dieu tri: ");
 		setKhoaDieuTri(bn);
+		vietHoaChuCaiDau(bn.khoaDieuTri);
 		if (strlen(getKhoaDieuTri(&bn)) > 25 || strlen(getKhoaDieuTri(&bn)) < 1)
 		{
 			printf("Khoa dieu tri khong hop le vui long nhap lai !!!\n");
@@ -393,6 +396,7 @@ void nhapBenhNhan(BenhNhan &bn)
 	{
 		printf("- Nhap dia chi thuong tru: ");
 		setNoiThuongTru(bn);
+		vietHoaChuCaiDau(bn.noiThuongTru);
 		if (strlen(getNoiThuongTru(&bn)) > 25 || strlen(getNoiThuongTru(&bn)) < 1)
 		{
 			printf("Noi thuong tru khong hop le vui long nhap lai !!!\n");
@@ -443,6 +447,7 @@ void nhapBenhNhan(BenhNhan &bn)
 			{
 				printf("\t\t+ Nhap ten vaccine: ");
 				setTenVaccine(bn.mui_1);
+				vietHoaChuCaiDau(bn.mui_1.tenVaccine);
 				if (strlen(getTenVaccine(&bn.mui_1)) > 15 || strlen(getTenVaccine(&bn.mui_1)) < 1)
 				{
 					printf("Ten vaccine khong hop le vui long nhap lai !!!\n");
@@ -487,6 +492,7 @@ void nhapBenhNhan(BenhNhan &bn)
 			{
 				printf("\t\t+ Nhap ten vaccine: ");
 				setTenVaccine(bn.mui_1);
+				vietHoaChuCaiDau(bn.mui_1.tenVaccine);
 				if (strlen(getTenVaccine(&bn.mui_1)) > 15 || strlen(getTenVaccine(&bn.mui_1)) < 1)
 				{
 					printf("Ten vaccine khong hop le vui long nhap lai !!!\n");
@@ -520,6 +526,7 @@ void nhapBenhNhan(BenhNhan &bn)
 			{
 				printf("\t\t+ Nhap ten vaccine: ");
 				setTenVaccine(bn.mui_2);
+				vietHoaChuCaiDau(bn.mui_2.tenVaccine);
 				if (strlen(getTenVaccine(&bn.mui_2)) > 15 || strlen(getTenVaccine(&bn.mui_2)) < 1)
 				{
 					printf("Ten vaccine khong hop le vui long nhap lai !!!\n");
@@ -554,6 +561,7 @@ void nhapBenhNhan(BenhNhan &bn)
 			{
 				printf("\t\t+ Nhap ten vaccine: ");
 				setTenVaccine(bn.mui_1);
+				vietHoaChuCaiDau(bn.mui_1.tenVaccine);
 				if (strlen(getTenVaccine(&bn.mui_1)) > 15 || strlen(getTenVaccine(&bn.mui_1)) < 1)
 				{
 					printf("Ten vaccine khong hop le vui long nhap lai !!!\n");
@@ -587,6 +595,7 @@ void nhapBenhNhan(BenhNhan &bn)
 			{
 				printf("\t\t+ Nhap ten vaccine: ");
 				setTenVaccine(bn.mui_2);
+				vietHoaChuCaiDau(bn.mui_2.tenVaccine);
 				if (strlen(getTenVaccine(&bn.mui_2)) > 15 || strlen(getTenVaccine(&bn.mui_2)) < 1)
 				{
 					printf("Ten vaccine khong hop le vui long nhap lai !!!\n");
@@ -614,6 +623,7 @@ void nhapBenhNhan(BenhNhan &bn)
 			{
 				printf("\t\t+ Nhap ten vaccine: ");
 				setTenVaccine(bn.mui_3);
+				vietHoaChuCaiDau(bn.mui_3.tenVaccine);
 				if (strlen(getTenVaccine(&bn.mui_3)) > 15 || strlen(getTenVaccine(&bn.mui_3)) < 1)
 				{
 					printf("Ten vaccine khong hop le vui long nhap lai !!!\n");
@@ -631,7 +641,7 @@ void nhapBenhNhan(BenhNhan &bn)
 				}
 				if (chenhLechDate(bn.mui_2.ngayTiem, bn.mui_3.ngayTiem) < 90)
 				{
-					printf("Mui 2 cua ban chua du 90 ngay tu luc tiem mui 2\n");
+					printf("Mui 3 cua ban chua du 90 ngay tu luc tiem mui 2\n");
 				}
 			} while (!laNgayHopLe(getNgay(bn.mui_3.ngayTiem), getThang(bn.mui_3.ngayTiem), getNam(bn.mui_3.ngayTiem)) || chenhLechDate(bn.mui_2.ngayTiem, bn.mui_3.ngayTiem) < 90);
 			break;
@@ -888,13 +898,13 @@ void xoaBatKy(BenhNhan *bn, int &soLuong)
 
 void vietHoachucai(char *x)
 {
-	if (*x <= 122 && *x >= 97)
+	if (*x <= KI_TU_z_TRONG_ASCII && *x >= KI_TU_a_TRONG_ASCII)
 		*x = *x - 32;
 }
 
 void vietThuongChuCai(char *x)
 {
-	if (*x >= 65 && *x <= 90)
+	if (*x >= KI_TU_A_TRONG_ASCII && *x <= KI_TU_Z_TRONG_ASCII)
 		*x = *x + 32;
 }
 
@@ -902,7 +912,7 @@ void vietHoaChuCaiDau(char *x)
 {
 	for (int i = 0; i < strlen(x); i++)
 	{
-		if (i == 0 || (i > 0 && x[i - 1] == 32))
+		if (i == 0 || (i > 0 && x[i - 1] == KI_TU_KHOANG_TRANG_TRONG_ASCII))
 		{
 			vietHoachucai(&x[i]);
 		}
@@ -1075,7 +1085,7 @@ float soTienVienPhi(BenhNhan bn)
 
 void xuatHoaDon(BenhNhan bn)
 {
-	float bhyt = strlen(getBhyt(&bn)) != 1 ? 80 : 0;
+	//float bhyt = strlen(getBhyt(&bn)) != 1 ? 80 : 0;
 	NgayThang ngayHienTai = layRaNgayThangNamHienTai();
 	printf("\t%-25s\t", getTenBenhNhan(&bn));
 	printf("%-2d/%-2d/%-4d\t\t", getNgay(bn.ngayNhapVien), getThang(bn.ngayNhapVien), getNam(bn.ngayNhapVien));
